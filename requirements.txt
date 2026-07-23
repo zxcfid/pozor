@@ -1,0 +1,5 @@
+python-telegram-bot[webhooks]>=21.7
+flask
+
+Procfile 
+web: python bot.py
