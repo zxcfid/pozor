@@ -66,7 +66,7 @@ LANGUAGES = {
         "wallet_card_success": "{check} Кошелек успешно добавлен/изменен!",
         "create_deal_title": "{money} <b>Создание сделки</b>\n\nВведите сумму в <b>{method}</b>:\n<code>2000</code>",
         "create_deal_desc": "{pen} <b>Укажите, что вы предлагаете в этой сделке:</b>\n\n<i>Пример: 10 Кепок и Пене...</i>",
-        "create_deal_success": "{check} <b>Сделка успешно создана!</b>\n\nСумма: <b>{amount} {method}</b>\n\n<b>Описание:</b>\n{description}\n\nСсылка для покупателя:\n<code>{link}</code>\n\n<i>dev: @seinarukiro</i>\n<i>t.me/otcgifttg</i>",
+        "create_deal_success": "{check} <b>Сделка успешно создана!</b>\n\nСумма: <b>{amount} {method}</b>\n\n<b>Описание:</b>\n{description}\n\nСсылка для покупателя:\n<code>{link}</code>\n\n<i>dev: @imJordanBeIfort</i>",
         "deal_buyer_info": "{money} <b>Информация о сделке #{deal_code}</b>\n\nВы покупатель в сделке.\nПродавец: @{seller_username} ({seller_id})\nУспешные сделки: {seller_deals}\n\nВы покупаете: <b>{amount} {method}</b>\n\nПожалуйста, подтвердите своё участие, чтобы получить реквизиты для оплаты.",
         "deal_buyer_confirmed": "{check} <b>Вы подтвердили участие в сделке #{deal_code}</b>\n\n<b>Адрес для оплаты:</b>\n<code>{payment_address}</code>\n\n<b>Сумма к оплате:</b>\n{payment_amount}\n\n<b>Комментарий к платежу (мемо):</b>\n<code>{memo}</code>\n\n⚠️ Комментарий обязателен! После оплаты нажмите кнопку «Я оплатил».",
         "deal_paid_notification": "💰 Покупатель @{buyer_username} оплатил сделку #{deal_id}.\nЗавершите сделку командой:\n<code>/buyslnft {deal_id}</code>",
