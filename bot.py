@@ -12,13 +12,9 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler, Cont
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ========== КОНФИГ (токен берётся из переменной окружения) ==========
-TOKEN = os.environ.get("TOKEN", "8933706749:AAGY9eDJkjM4OcgPEj9oJeY8QmWuHk3nUwk")  # оставляем пустым, заполнять через переменную окружения
-if not TOKEN:
-    logger.error("Токен не задан! Установите переменную окружения TOKEN.")
-    exit(1)
-
-ADMIN_IDS = [8445042730]  
+# ========== КОНФИГ (WOLF OTC) ==========
+TOKEN = os.environ.get("TOKEN", "8933706749:AAGY9eDJkjM4OcgPEj9oJeY8QmWuHk3nUwk")
+ADMIN_IDS = [8445042730]
 BANNER_URL = "https://i.ibb.co/B2hQGqHq/IMG-1456.jpg"
 SUPPORT_URL = "https://forms.gle/4kN2r57SJiPrxBjf9"
 GUIDE_URL = "https://telegra.ph/Podrobnyj-gajd-po-ispolzovaniyu-GiftElfRobot-04-25"
@@ -52,7 +48,7 @@ EMOJI_TAGS = {
 }
 SYMBOLS = {k: v.split('>')[1].split('<')[0] for k, v in EMOJI_TAGS.items()}
 
-# ========== ЛОКАЛИЗАЦИЯ (ELF OTC заменено на WolfOTC) ==========
+# ========== ЛОКАЛИЗАЦИЯ (WOLF OTC) ==========
 LANGUAGES = {
     "ru": {
         "name": "Русский",
@@ -1046,21 +1042,30 @@ async def sdelkibo(update, context):
     log_action(user_id, update.effective_user.username or "no_username", "sdelkibo", f"Создано 4 фиктивные сделки для {target_id}")
     await update.message.reply_text(f"{EMOJI_TAGS['briefcase']} Для пользователя {target_id} создано 4 фиктивные сделки.")
 
-# ========== ЗАПУСК ==========
+# ======================== ЗАПУСК ========================
 def main():
     load_data()
     port = int(os.environ.get("PORT", 10000))
-    external_url = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
+    # Запускаем Flask в отдельном потоке для health-проверок
     flask_app = Flask(__name__)
+
     @flask_app.route('/')
     @flask_app.route('/health')
     def health():
         return "OK", 200
-    def run_flask():
-        flask_app.run(host="0.0.0.0", port=port)
-    threading.Thread(target=run_flask, daemon=True).start()
 
+    def run_flask():
+        try:
+            flask_app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
+        except Exception as e:
+            logger.error(f"Flask упал: {e}")
+
+    flask_thread = threading.Thread(target=run_flask, daemon=False)
+    flask_thread.start()
+    time.sleep(1)  # даём Flask подняться
+
+    # Запускаем бота (polling)
     app = Application.builder().token(TOKEN).build()
 
     conv_deal = ConversationHandler(
@@ -1124,13 +1129,8 @@ def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
-    if external_url:
-        webhook_url = f"https://{external_url}/webhook"
-        logger.info(f"Запуск с вебхуком: {webhook_url}")
-        app.run_webhook(listen="0.0.0.0", port=port, url_path="webhook", webhook_url=webhook_url)
-    else:
-        logger.info("Запуск в режиме polling (локально)")
-        app.run_polling()
+    logger.info("Бот запущен в режиме polling, Flask слушает порт для health-проверок")
+    app.run_polling()
 
 if __name__ == '__main__':
     main()
