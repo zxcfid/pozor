@@ -1134,12 +1134,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-requirements.txt
-python-telegram-bot[webhooks]>=21.7
-flask
-
-Procfile (опционально)
-web: python bot.py
-
-Дай мне txt файл с этим всем внутри 
