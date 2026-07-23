@@ -13,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # ========== КОНФИГ (токен берётся из переменной окружения) ==========
-TOKEN = os.environ.get("8933706749:AAGY9eDJkjM4OcgPEj9oJeY8QmWuHk3nUwk", "")  # оставляем пустым, заполнять через переменную окружения
+TOKEN = os.environ.get("TOKEN", "8933706749:AAGY9eDJkjM4OcgPEj9oJeY8QmWuHk3nUwk")  # оставляем пустым, заполнять через переменную окружения
 if not TOKEN:
     logger.error("Токен не задан! Установите переменную окружения TOKEN.")
     exit(1)
