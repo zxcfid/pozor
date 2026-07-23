@@ -13,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # ========== КОНФИГ (токен берётся из переменной окружения) ==========
-TOKEN = os.environ.get("TOKEN", "")  # оставляем пустым, заполнять через переменную окружения
+TOKEN = os.environ.get("8933706749:AAGY9eDJkjM4OcgPEj9oJeY8QmWuHk3nUwk", "")  # оставляем пустым, заполнять через переменную окружения
 if not TOKEN:
     logger.error("Токен не задан! Установите переменную окружения TOKEN.")
     exit(1)
@@ -22,7 +22,7 @@ ADMIN_IDS = [8445042730]
 BANNER_URL = "https://i.ibb.co/B2hQGqHq/IMG-1456.jpg"
 SUPPORT_URL = "https://forms.gle/4kN2r57SJiPrxBjf9"
 GUIDE_URL = "https://telegra.ph/Podrobnyj-gajd-po-ispolzovaniyu-GiftElfRobot-04-25"
-BOT_USERNAME = "GiftElfil_Robot"
+BOT_USERNAME = "WOLFOTCBOT"
 REFERRAL_PERCENT = 20
 ADMINS_FILE = "admins.json"
 LOGS_FILE = "bot_logs.json"
